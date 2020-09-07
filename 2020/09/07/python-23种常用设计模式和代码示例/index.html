@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="docker cmd 和 entrypoint 的区别"/>
+        <meta property="og:title" content="python 23种常用设计模式和代码示例"/>
     
 
     <!--Open Graph Description-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>docker cmd 和 entrypoint 的区别 - learning</title>
+    <title>python 23种常用设计模式和代码示例 - learning</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
@@ -108,14 +108,14 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">docker cmd 和 entrypoint 的区别</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-08-31</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">python 23种常用设计模式和代码示例</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-09-07</p>
         </div>
     </div>
 
     <!-- Icon -->
     <div class="relative w-100 mw8 center white dn dn-m db-ns">
-        <i class="header-icon fa fa-file-text-o"></i>
+        <i class="header-icon fa fa-wheelchair-alt"></i>
     </div>
 </div>
 
@@ -129,46 +129,52 @@
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/docker/">#docker</a>
+                                <a class="fw3 ph1 dib" href="/tags/python/">#python</a> <a class="fw3 ph1 dib" href="/tags/设计模式/">#设计模式</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><ol>
-<li>如果docker run没有指定任何的执行命令或者dockerfile里面也没有entrypoint，那么，就会使用cmd指定的默认的执行命令执行。同时也从侧面说明了entrypoint的含义，它才是真正的容器启动以后要执行命令。所以这句话就给出了cmd命令的一个角色定位，它主要作用是默认的容器启动执行命令。（注意不是“全部”作用）</li>
-</ol>
+                    <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
+<li>模式设计是程序发展过程中解决问题的思路结晶，是无数前辈的心血和总结，也是衡量一个程序员功底的标准之一。同时模式设计是适用于任何一门编程语言的思想。</li>
+</ul>
 <hr>
-<ol start="2">
-<li>如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数</li>
-</ol>
-<h3 id="cmd用法"><a href="#cmd用法" class="headerlink" title="cmd用法"></a>cmd用法</h3><ol>
-<li><p>没有中括号的形式,那么命令command默认是在“/bin/sh -c”下执行的</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD echo &quot;hello cmd!&quot;</span><br></pre></td></tr></table></figure>
+<h3 id="模式设计遵守以下几个原则"><a href="#模式设计遵守以下几个原则" class="headerlink" title="模式设计遵守以下几个原则"></a>模式设计遵守以下几个原则</h3><ul>
+<li><p>开闭原则（Open Close Principle）</p>
+<p>  <code>对扩展开放，对修改关闭。</code></p>
 </li>
-<li><p>带有中括号的形式。这时，命令没有再任何shell终端环境下，如果我们要执行shell，必须把shell加入到中括号的参数中。这种用法就像一个c语言的exec函数，意思是我们要执行一个进程</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;bin&#x2F;bash&quot;, &quot;-c&quot;, &quot;echo &#39;hello cmd!&#39;&quot;]</span><br></pre></td></tr></table></figure>
-<p> <strong><em>需要注意，采用中括号形式，那么第一个参数必须是命令的全路径才行。而且，一个dockerfile至多只能有一个cmd，如果有多个，只有最后一个生效。<br>官网推荐采用这种方法.</em></strong></p>
+<li><p>里氏代换原则（Liskov Substitution Principle）</p>
+<p>  <code>只有当衍生类可以替换掉基类，软件单位的功能不受到影响时，基类才能真正被复用，而衍生类也能够在基类的基础上增加新的行为。</code></p>
 </li>
-</ol>
-<h3 id="entrypoint用法"><a href="#entrypoint用法" class="headerlink" title="entrypoint用法"></a>entrypoint用法</h3><ol>
-<li><p>没有中括号，在这种模式下，任何run和cmd的参数都无法被传入到entrypoint里</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT echo</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># cmd的参数没有被打印。</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; </span><br></pre></td></tr></table></figure>
+<li><p>依赖倒转原则（Dependence Inversion Principle）</p>
+<p>  <code>这个是开闭原则的基础，对接口编程，依赖于抽象而不依赖于具体。</code></p>
 </li>
-<li><p>带中括号的，如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数,官网推荐这种用法。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT [&quot;echo&quot;]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; p in cmd</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id p in run</span><br><span class="line">&#x3D;&gt; p in run</span><br></pre></td></tr></table></figure>
-
+<li><p>接口隔离原则（Interface Segregation Principle）</p>
+<p>  <code>使用多个隔离的借口来降低耦合度。</code></p>
 </li>
-</ol>
+<li><p>迪米特法则（Demeter Principle）</p>
+<p>  <code>一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立。</code></p>
+</li>
+<li><p>合成复用原则（Composite Reuse Principle）</p>
+<p>  <code>原则是尽量使用合成/聚合的方式，而不是使用继承。继承实际上破坏了类的封装性，超类的方法可能会被子类修改。</code></p>
+</li>
+</ul>
+<h3 id="python-23种常用设计模式和代码示例"><a href="#python-23种常用设计模式和代码示例" class="headerlink" title="python 23种常用设计模式和代码示例"></a>python 23种常用设计模式和代码示例</h3><ul>
+<li><h4 id="创建型模式5种"><a href="#创建型模式5种" class="headerlink" title="创建型模式5种"></a>创建型模式5种</h4><ul>
+<li>工厂模式</li>
+<li>抽象工厂模式</li>
+<li>建造者模式</li>
+<li>原型模式</li>
+<li>单例模式</li>
+</ul>
+</li>
+</ul>
 
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/docker/">#docker</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/python/">#python</a> <a class="fw3 ph1 dib" href="/tags/设计模式/">#设计模式</a>
                         </div>
                     
 

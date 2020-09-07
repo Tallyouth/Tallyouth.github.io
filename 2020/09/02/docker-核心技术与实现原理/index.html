@@ -154,6 +154,58 @@
 <p>  <a href="#clone-flag1">CLONE_NEWPID</a></p>
 <p>  <a href="#">CLONE_NEWUSER</a></p>
 <p>  <a href="#clone-flag5">CLONE_NEWUTS</a></p>
+<table>
+<thead>
+<tr>
+<th>flag标记位</th>
+<th>功能</th>
+<th>隔离的资源</th>
+<th>Linux内核版本支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLONE_NEWIPC</td>
+<td>在新的 IPC namespace启动新进程</td>
+<td>进程间通信，包括信号量、消息队列和共享内存</td>
+<td>since 2.6.19</td>
+</tr>
+<tr>
+<td>CLONE_NEWNET</td>
+<td>在新的network namespace启动新进程</td>
+<td>网络设备、网络栈、端口</td>
+<td>since 2.6.24</td>
+</tr>
+<tr>
+<td>CLONE_NEWNS</td>
+<td>在新的mount namespace启动新进程</td>
+<td>挂载点（文件系统）</td>
+<td>since 2.6.19</td>
+</tr>
+<tr>
+<td>CLONE_NEWPID</td>
+<td>在新的PID namespace启动新进程</td>
+<td>进程编号（新的进程树）</td>
+<td>since 2.6.24</td>
+</tr>
+<tr>
+<td>CLONE_NEWUSER</td>
+<td>在新的user namespace启动新进程</td>
+<td>用户和用户组</td>
+<td>在2.6.23引入，在3.5和3.8有更新</td>
+</tr>
+<tr>
+<td>CLONE_NEWUTS</td>
+<td>在新的UTS namespace启动新进程</td>
+<td>主机名和域</td>
+<td>since 2.6.19</td>
+</tr>
+<tr>
+<td>CLONE_NEWCGROUP</td>
+<td>在新的cgroup namespace启动新进程</td>
+<td>CPU、内存、磁盘读写等</td>
+<td>since 4.6</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 <p>通过这七个选项我们能在创建新的进程时设置新进程应该在哪些资源上与宿主机器进行隔离。</p>
@@ -364,6 +416,10 @@
                     <!-- Widget 3: Recent Posts -->
                     <div class="mt5 tc tl-l">
     <h3>Recent Posts</h3>
+    
+        <p>
+            <a href="/2020/09/07/python-23%E7%A7%8D%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/">python 23种常用设计模式和代码示例</a>
+        </p>
     
         <p>
             <a href="/2020/09/02/docker-%E6%A0%B8%E5%BF%83%E6%8A%80%E6%9C%AF%E4%B8%8E%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">docker 核心技术与实现原理</a>

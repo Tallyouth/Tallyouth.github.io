@@ -77,6 +77,49 @@
       </tags>
   </entry>
   <entry>
+    <title>python 23种常用设计模式和代码示例</title>
+    <url>/2020/09/07/python-23%E7%A7%8D%E5%B8%B8%E7%94%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E5%92%8C%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B/</url>
+    <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><ul>
+<li>模式设计是程序发展过程中解决问题的思路结晶，是无数前辈的心血和总结，也是衡量一个程序员功底的标准之一。同时模式设计是适用于任何一门编程语言的思想。</li>
+</ul>
+<hr>
+<h3 id="模式设计遵守以下几个原则"><a href="#模式设计遵守以下几个原则" class="headerlink" title="模式设计遵守以下几个原则"></a>模式设计遵守以下几个原则</h3><ul>
+<li><p>开闭原则（Open Close Principle）</p>
+<p>  <code>对扩展开放，对修改关闭。</code></p>
+</li>
+<li><p>里氏代换原则（Liskov Substitution Principle）</p>
+<p>  <code>只有当衍生类可以替换掉基类，软件单位的功能不受到影响时，基类才能真正被复用，而衍生类也能够在基类的基础上增加新的行为。</code></p>
+</li>
+<li><p>依赖倒转原则（Dependence Inversion Principle）</p>
+<p>  <code>这个是开闭原则的基础，对接口编程，依赖于抽象而不依赖于具体。</code></p>
+</li>
+<li><p>接口隔离原则（Interface Segregation Principle）</p>
+<p>  <code>使用多个隔离的借口来降低耦合度。</code></p>
+</li>
+<li><p>迪米特法则（Demeter Principle）</p>
+<p>  <code>一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立。</code></p>
+</li>
+<li><p>合成复用原则（Composite Reuse Principle）</p>
+<p>  <code>原则是尽量使用合成/聚合的方式，而不是使用继承。继承实际上破坏了类的封装性，超类的方法可能会被子类修改。</code></p>
+</li>
+</ul>
+<h3 id="python-23种常用设计模式和代码示例"><a href="#python-23种常用设计模式和代码示例" class="headerlink" title="python 23种常用设计模式和代码示例"></a>python 23种常用设计模式和代码示例</h3><ul>
+<li><h4 id="创建型模式5种"><a href="#创建型模式5种" class="headerlink" title="创建型模式5种"></a>创建型模式5种</h4><ul>
+<li>工厂模式</li>
+<li>抽象工厂模式</li>
+<li>建造者模式</li>
+<li>原型模式</li>
+<li>单例模式</li>
+</ul>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>设计模式</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>灰灰减肥计划</title>
     <url>/2020/08/28/%E7%81%B0%E7%81%B0%E5%87%8F%E8%82%A5%E8%AE%A1%E5%88%92/</url>
     <content><![CDATA[<h3 id="饮食"><a href="#饮食" class="headerlink" title="饮食"></a>饮食</h3><pre><code>减肥食谱
@@ -119,6 +162,58 @@
 <p>  <a href="#clone-flag1">CLONE_NEWPID</a></p>
 <p>  <a href="#">CLONE_NEWUSER</a></p>
 <p>  <a href="#clone-flag5">CLONE_NEWUTS</a></p>
+<table>
+<thead>
+<tr>
+<th>flag标记位</th>
+<th>功能</th>
+<th>隔离的资源</th>
+<th>Linux内核版本支持</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>CLONE_NEWIPC</td>
+<td>在新的 IPC namespace启动新进程</td>
+<td>进程间通信，包括信号量、消息队列和共享内存</td>
+<td>since 2.6.19</td>
+</tr>
+<tr>
+<td>CLONE_NEWNET</td>
+<td>在新的network namespace启动新进程</td>
+<td>网络设备、网络栈、端口</td>
+<td>since 2.6.24</td>
+</tr>
+<tr>
+<td>CLONE_NEWNS</td>
+<td>在新的mount namespace启动新进程</td>
+<td>挂载点（文件系统）</td>
+<td>since 2.6.19</td>
+</tr>
+<tr>
+<td>CLONE_NEWPID</td>
+<td>在新的PID namespace启动新进程</td>
+<td>进程编号（新的进程树）</td>
+<td>since 2.6.24</td>
+</tr>
+<tr>
+<td>CLONE_NEWUSER</td>
+<td>在新的user namespace启动新进程</td>
+<td>用户和用户组</td>
+<td>在2.6.23引入，在3.5和3.8有更新</td>
+</tr>
+<tr>
+<td>CLONE_NEWUTS</td>
+<td>在新的UTS namespace启动新进程</td>
+<td>主机名和域</td>
+<td>since 2.6.19</td>
+</tr>
+<tr>
+<td>CLONE_NEWCGROUP</td>
+<td>在新的cgroup namespace启动新进程</td>
+<td>CPU、内存、磁盘读写等</td>
+<td>since 4.6</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
 <p>通过这七个选项我们能在创建新的进程时设置新进程应该在哪些资源上与宿主机器进行隔离。</p>
