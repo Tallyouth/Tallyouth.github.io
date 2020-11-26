@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="MariaDB数据库安装"/>
+        <meta property="og:title" content="ab压测工具使用"/>
     
 
     <!--Open Graph Description-->
@@ -44,7 +44,7 @@
 
     <!-- Title -->
     
-    <title>MariaDB数据库安装 - learning</title>
+    <title>ab压测工具使用 - learning</title>
 
     <!-- Tachyons Core CSS -->
     <link rel="stylesheet" href="https://unpkg.com/tachyons/css/tachyons.min.css">
@@ -108,14 +108,14 @@
     <!-- Title -->
     <div class="w-100 mw8 center vh-40 dt">
         <div class="dtc v-mid white">
-            <h1 class="f1-l f2-m tc tc-m tl-ns">MariaDB数据库安装</h1>
-            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-11-04</p>
+            <h1 class="f1-l f2-m tc tc-m tl-ns">ab压测工具使用</h1>
+            <p class="f4 fw3 pab-100px tc tc-m tl-ns">2020-11-26</p>
         </div>
     </div>
 
     <!-- Icon -->
     <div class="relative w-100 mw8 center white dn dn-m db-ns">
-        <i class="header-icon fa fa-thumbs-up"></i>
+        <i class="header-icon fa fa-calendar-check-o"></i>
     </div>
 </div>
 
@@ -129,38 +129,108 @@
                     
                         <div class="tags-container-vertical">
                             <div class="tags-sub-container">
-                                <a class="fw3 ph1 dib" href="/tags/数据库/">#数据库</a> <a class="fw3 ph1 dib" href="/tags/MariaDB/">#MariaDB</a>
+                                <a class="fw3 ph1 dib" href="/tags/ab/">#ab</a> <a class="fw3 ph1 dib" href="/tags/压测/">#压测</a>
                             </div>
                         </div>
                     
 
                     <!-- Main Post Content -->
-                    <h4 id="1-打开MariaDB下载地址，选择当前稳定版本-下载地址"><a href="#1-打开MariaDB下载地址，选择当前稳定版本-下载地址" class="headerlink" title="1.打开MariaDB下载地址，选择当前稳定版本 下载地址"></a>1.打开MariaDB下载地址，选择当前稳定版本 <a target="_blank" rel="noopener" href="https://downloads.mariadb.org/">下载地址</a></h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5d5rkd8j313m0oxtas.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”"><a href="#2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”" class="headerlink" title="2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]"></a>2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5f18h9nj30xc0n3wgr.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="3-选择系统版本和mariadb版本自定义的存储库会生成在下面"><a href="#3-选择系统版本和mariadb版本自定义的存储库会生成在下面" class="headerlink" title="3.选择系统版本和mariadb版本自定义的存储库会生成在下面"></a>3.选择系统版本和mariadb版本自定义的存储库会生成在下面</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5furyjqj30xc0m476b.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源"><a href="#4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源" class="headerlink" title="4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源"></a>4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># MariaDB 10.4 CentOS repository list - created 2020-11-04 05:28 UTC</span><br><span class="line"># http:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;</span><br><span class="line">[mariadb]</span><br><span class="line">name &#x3D; MariaDB</span><br><span class="line">baseurl &#x3D; https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;10.4&#x2F;centos7-amd64&#x2F;</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="5-使用以下命令安装MariaDB"><a href="#5-使用以下命令安装MariaDB" class="headerlink" title="5.使用以下命令安装MariaDB"></a>5.使用以下命令安装MariaDB</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo yum -y install MariaDB-server MariaDB-client</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>注意： 如果报错镜像不存在，HTTPS Error 404 - Not Found ，确认安装的版本在镜像中存在，可以直接进镜像地址查看。<br>也有可能yum本地镜像源仓库版本和需要安装的版本不一致，通过<code>sudo yum -y list MariaDB-server MariaDB-client</code>查看，否则更换本地yum源为清华镜像源</li>
-</ul>
-<h4 id="6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"><a href="#6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）" class="headerlink" title="6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"></a>6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl start mariadb         # 启动服务</span><br><span class="line">systemctl enable mariadb        # 可选开机自启动</span><br><span class="line">mysql_secure_installation       # 开始配置</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="7-安装过程选择"><a href="#7-安装过程选择" class="headerlink" title="7. 安装过程选择"></a>7. 安装过程选择</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">（1）输入当前密码，初次安装后是没有密码的，直接回车</span><br><span class="line">（2）询问时候使用 unix_socket 进行身份验证 n</span><br><span class="line">（3）是否为 root 设置新密码 y</span><br><span class="line">（4）输入新密码</span><br><span class="line">（5）确认密码</span><br><span class="line">（6）时候移除匿名用户，这个随意 y</span><br><span class="line">（7）拒绝用户远程登陆，看心情 n</span><br><span class="line">（8）删除test库，看心情 n</span><br><span class="line">（9）重新加载权限表 y</span><br></pre></td></tr></table></figure>
-<p><strong><em>根据提示进行配置，当你看到 Thanks for using MariaDB! 时，表明配置成功了</em></strong></p>
-<h4 id="8-配置"><a href="#8-配置" class="headerlink" title="8.配置"></a>8.配置</h4><ul>
-<li>云服务器记得开放安全组3306端口</li>
-<li>开启远程连接  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;自定义远程登陆的密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
+                    <h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>yum -y install httpd-tools</code></p>
+<h3 id="ab参数说明"><a href="#ab参数说明" class="headerlink" title="ab参数说明"></a>ab参数说明</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-n</td>
+<td>在测试会话中所执行的请求个数。默认时，仅执行一个请求。</td>
+</tr>
+<tr>
+<td>-c</td>
+<td>一次产生的请求个数。默认是一次一个。</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>测试所进行的最大秒数。其内部隐含值是-n 50000，它可以使对服务器的测试限制在一个固定的总时间以内。默认时，没有时间限制。</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>包含了需要POST的数据的文件。</td>
+</tr>
+<tr>
+<td>-P</td>
+<td>对一个中转代理提供BASIC认证信任。用户名和密码由一个:隔开，并以base64编码形式发送。无论服务器是否需要(即, 是否发送了401认证需求代码)，此字符串都会被发送</td>
+</tr>
+<tr>
+<td>-T</td>
+<td>POST数据所使用的Content-type头信息。</td>
+</tr>
+<tr>
+<td>-V</td>
+<td>显示版本号并退出。</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>设置显示信息的详细程度-4或更大值会显示头信息，3或更大值可以显示响应代码(404,200等),2或更大值可以显示警告和其他信息。</td>
+</tr>
+<tr>
+<td>-C</td>
+<td>对请求附加一个Cookie:行。其典型形式是name=value的一个参数对，此参数可以重复。</td>
+</tr>
+<tr>
+<td>-k</td>
+<td>-k启用HTTP KeepAlive功能，即在一个HTTP会话中执行多个请求。默认时，不启用KeepAlive功能。</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>-q如果处理的请求数大于150，ab每处理大约10%或者100个请求时，会在stderr输出一个进度计数。此-q标记可以抑制这些信息。</td>
+</tr>
+</tbody></table>
+<h3 id="ab性能指标"><a href="#ab性能指标" class="headerlink" title="ab性能指标"></a>ab性能指标</h3><table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>吞吐率（Requests per second）</td>
+<td>服务器并发处理能力的量化描述，单位是reqs/s，指的是在某个并发用户数下单位时间内处理的请求数。某个并发用户数下单位时间内能处理的最大请求数，称之为最大吞吐率。记住：吞吐率是基于并发用户数的。这句话代表了两个含义：a、吞吐率和并发用户数相关b、不同的并发用户数下，吞吐率一般是不同的 计算公式：总请求数/处理完成这些请求数所花费的时间，即Request per second=Complete requests/Time taken for tests必须要说明的是，这个数值表示当前机器的整体性能，值越大越好。</td>
+</tr>
+<tr>
+<td>并发连接数（The number of concurrent connections）</td>
+<td>并发连接数指的是某个时刻服务器所接受的请求数目，简单的讲，就是一个会话</td>
+</tr>
+<tr>
+<td>并发用户数（Concurrency Level）</td>
+<td>要注意区分这个概念和并发连接数之间的区别，一个用户可能同时会产生多个会话，也即连接数。在HTTP/1.1下，IE7支持两个并发连接，IE8支持6个并发连接，FireFox3支持4个并发连接，所以相应的，我们的并发用户数就得除以这个基数。</td>
+</tr>
+<tr>
+<td>用户平均请求等待时间（Time per request）</td>
+<td>计算公式：处理完成所有请求数所花费的时间/（总请求数/并发用户数），即：Time per request=Time taken for tests/（Complete requests/Concurrency Level）</td>
+</tr>
+<tr>
+<td>服务器平均请求等待时间（Time per request:across all concurrent requests）</td>
+<td>计算公式：处理完成所有请求数所花费的时间/总请求数，即：Time taken for/testsComplete requests可以看到，它是吞吐率的倒数。同时，它也等于用户平均请求等待时间/并发用户数，即</td>
+</tr>
+</tbody></table>
+<h3 id="ab实际使用"><a href="#ab实际使用" class="headerlink" title="ab实际使用"></a>ab实际使用</h3><p>ab的命令参数比较多，我们经常使用的是-c和-n参数。</p>
+<p>ab -c 10 -n 100 <a target="_blank" rel="noopener" href="http://182.92.126.194:8000/api/v1/statistics/courses">http://182.92.126.194:8000/api/v1/statistics/courses</a></p>
+<p>-c10表示并发用户数为10</p>
+<p>-n100表示请求总数为100</p>
+<h3 id="结果分析"><a href="#结果分析" class="headerlink" title="结果分析"></a>结果分析</h3><p>结果分析：<br>Server Software:        nginx //web服务器<br>Server Hostname:        127.0.0.1 //服务器主机名<br>Server Port:            80 //服务器端口</p>
+<p>Document Path:          /index.php //请求的资源<br>Document Length:        34309 bytes // 文档返回的长度，不包括相应头</p>
+<p>Concurrency Level:      100 // 并发个数<br>Time taken for tests:   292.241 seconds //总请求时间<br>Complete requests:      86 // 成功的请求数<br>Failed requests:        0 //失败的请求数<br>Write errors:           0<br>Total transferred:      2977836 bytes //网络传输量<br>HTML transferred:       2950574 bytes //HTML内容传输量<br>Requests per second:    0.29 [#/sec] (mean) // 平均每秒的请求数<br>Time per request:       339815.529 [ms] (mean)  // 平均每个请求消耗的时间<br>Time per request:       3398.155 [ms] (mean, across all concurrent requests) //每个请求实际运行时间的平均值<br>Transfer rate:          9.95 [Kbytes/sec] received  // 时间传输速率</p>
+<p>Connection Times (ms)<br>              min  mean[+/-sd] median   max<br>Connect:        0    4   1.0      5       5<br>Processing:  2438 145776 83690.5 147778  287875<br>Waiting:     2426 145776 83690.8 147778  287875<br>Total:       2438 145780 83691.0 147782  287879<br>WARNING: The median and mean for the initial connection time are not within a normal deviation<br>        These results are probably not that reliable.</p>
+<p>Percentage of the requests served within a certain time (ms)<br>  50%  147782 // 50%的请求都是在85ms内完成的<br>  66%  191107<br>  75%  217747<br>  80%  231139<br>  90%  261350<br>  95%  274685<br>  98%  284726<br>  99%  287879<br> 100%  287879 (longest request)</p>
 
                     
                     <!-- Tags Bottom -->
                     
                         <div class="tags-container-bottom">
-                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/数据库/">#数据库</a> <a class="fw3 ph1 dib" href="/tags/MariaDB/">#MariaDB</a>
+                            <i class="fa fa-tag pr3 text-main-color"></i><a class="fw3 ph1 dib" href="/tags/ab/">#ab</a> <a class="fw3 ph1 dib" href="/tags/压测/">#压测</a>
                         </div>
                     
 
