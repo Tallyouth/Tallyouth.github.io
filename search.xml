@@ -125,6 +125,42 @@
       </tags>
   </entry>
   <entry>
+    <title>docker cmd 和 entrypoint 的区别</title>
+    <url>/2020/08/31/docker-cmd-%E5%92%8C-entrypoint-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><ol>
+<li>如果docker run没有指定任何的执行命令或者dockerfile里面也没有entrypoint，那么，就会使用cmd指定的默认的执行命令执行。同时也从侧面说明了entrypoint的含义，它才是真正的容器启动以后要执行命令。所以这句话就给出了cmd命令的一个角色定位，它主要作用是默认的容器启动执行命令。（注意不是“全部”作用）</li>
+</ol>
+<hr>
+<ol start="2">
+<li>如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数</li>
+</ol>
+<h3 id="cmd用法"><a href="#cmd用法" class="headerlink" title="cmd用法"></a>cmd用法</h3><ol>
+<li><p>没有中括号的形式,那么命令command默认是在“/bin/sh -c”下执行的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD echo &quot;hello cmd!&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带有中括号的形式。这时，命令没有再任何shell终端环境下，如果我们要执行shell，必须把shell加入到中括号的参数中。这种用法就像一个c语言的exec函数，意思是我们要执行一个进程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;bin&#x2F;bash&quot;, &quot;-c&quot;, &quot;echo &#39;hello cmd!&#39;&quot;]</span><br></pre></td></tr></table></figure>
+<p> <strong><em>需要注意，采用中括号形式，那么第一个参数必须是命令的全路径才行。而且，一个dockerfile至多只能有一个cmd，如果有多个，只有最后一个生效。<br>官网推荐采用这种方法.</em></strong></p>
+</li>
+</ol>
+<h3 id="entrypoint用法"><a href="#entrypoint用法" class="headerlink" title="entrypoint用法"></a>entrypoint用法</h3><ol>
+<li><p>没有中括号，在这种模式下，任何run和cmd的参数都无法被传入到entrypoint里</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT echo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cmd的参数没有被打印。</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带中括号的，如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数,官网推荐这种用法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT [&quot;echo&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; p in cmd</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id p in run</span><br><span class="line">&#x3D;&gt; p in run</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>docker add 和 copy 的区别</title>
     <url>/2020/09/01/docker-add-%E5%92%8C-copy-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p><strong><code>COPY</code> 和 <code>ADD</code> 都是 <code>Dockerfile</code> 中的指令，作用有些相似，都可以把文件从特定的位置复制到镜像中去</strong></p>
@@ -165,69 +201,113 @@
       </tags>
   </entry>
   <entry>
-    <title>docker cmd 和 entrypoint 的区别</title>
-    <url>/2020/08/31/docker-cmd-%E5%92%8C-entrypoint-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><ol>
-<li>如果docker run没有指定任何的执行命令或者dockerfile里面也没有entrypoint，那么，就会使用cmd指定的默认的执行命令执行。同时也从侧面说明了entrypoint的含义，它才是真正的容器启动以后要执行命令。所以这句话就给出了cmd命令的一个角色定位，它主要作用是默认的容器启动执行命令。（注意不是“全部”作用）</li>
-</ol>
-<hr>
-<ol start="2">
-<li>如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数</li>
-</ol>
-<h3 id="cmd用法"><a href="#cmd用法" class="headerlink" title="cmd用法"></a>cmd用法</h3><ol>
-<li><p>没有中括号的形式,那么命令command默认是在“/bin/sh -c”下执行的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD echo &quot;hello cmd!&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>带有中括号的形式。这时，命令没有再任何shell终端环境下，如果我们要执行shell，必须把shell加入到中括号的参数中。这种用法就像一个c语言的exec函数，意思是我们要执行一个进程</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;bin&#x2F;bash&quot;, &quot;-c&quot;, &quot;echo &#39;hello cmd!&#39;&quot;]</span><br></pre></td></tr></table></figure>
-<p> <strong><em>需要注意，采用中括号形式，那么第一个参数必须是命令的全路径才行。而且，一个dockerfile至多只能有一个cmd，如果有多个，只有最后一个生效。<br>官网推荐采用这种方法.</em></strong></p>
-</li>
-</ol>
-<h3 id="entrypoint用法"><a href="#entrypoint用法" class="headerlink" title="entrypoint用法"></a>entrypoint用法</h3><ol>
-<li><p>没有中括号，在这种模式下，任何run和cmd的参数都无法被传入到entrypoint里</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT echo</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cmd的参数没有被打印。</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>带中括号的，如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数,官网推荐这种用法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT [&quot;echo&quot;]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; p in cmd</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id p in run</span><br><span class="line">&#x3D;&gt; p in run</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-]]></content>
-      <tags>
-        <tag>docker</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>前端学习手册</title>
     <url>/2020/11/23/%E5%89%8D%E7%AB%AF%E5%AD%A6%E4%B9%A0%E6%89%8B%E5%86%8C/</url>
-    <content><![CDATA[<h4 id="boss直聘15k以上职位要求调研"><a href="#boss直聘15k以上职位要求调研" class="headerlink" title="boss直聘15k以上职位要求调研"></a>boss直聘15k以上职位要求调研</h4><ul>
-<li>精通JS、AJAX、JSON等WEB页面技术  》 百度</li>
-<li>熟悉HTTP协议,熟练掌握HTML/XHTML、CSS   》 百度、快手、58</li>
-<li>熟悉WEB标准，对表现与数据分离，HTML语义化等有深刻理解  》 百度</li>
-<li>熟练掌握主流前端框架，包括但不限于Angular、Vue、React； 》快手、腾讯、贝壳、小米、今日头条、网易有道、58、猿辅导</li>
-<li>熟悉Http、Websocket协议，熟练掌握 NodeJs、Typescript、Graphql 等; 》 快手</li>
-<li>在前端工程化，浏览器原理，Web安全，WebGL，算法，自动化测试，网络优化等至少一个方面深耕过并有自己深度思考或产出； 》 快手</li>
-<li>JavaScript跨浏览器开发经验 》 搜狐</li>
-<li>熟悉 Javascript，熟悉ES6、H5的技术将优先考虑；</li>
-<li>能深刻理解W3C标准及可用性，对移动端Web App在手机上的适配方案有很好的理解，熟悉各种终端的适配差异 》 小米</li>
-<li>熟练使用JS(ES6+),知晓原型链、作用域、this、上下文等原生JS概念及ES6+常用方法</li>
-<li>了解常用的递归、排序、字符串、树、链表、数组等算法熟悉正则表达式</li>
-<li>熟悉Node开发环境，能够熟练使用Webpack等构建工具；了解create-react-app、vue-cli等脚手架，可以按需配置。</li>
-<li>熟练 Javascript 语言，熟练掌握作用域、闭包、执行模型、性能优化、内存管理、网络通信、缓存等。 》 作业帮</li>
-<li>能提供完善的WebApp技术方案，了解native移动应用开发；</li>
-<li>熟悉EJS，Jade等模板引擎技术者优先； 》 天眼查</li>
-<li>对常见身份验证标准和协议有所了解，例如 OAuth, OpenID Connect, SAML, JWT</li>
-</ul>
-<h4 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h4><ul>
+    <content><![CDATA[<h3 id="岗位调研"><a href="#岗位调研" class="headerlink" title="岗位调研"></a><a href="#boss%E7%9B%B4%E8%81%9815k%E4%BB%A5%E4%B8%8A%E8%81%8C%E4%BD%8D%E8%A6%81%E6%B1%82%E8%B0%83%E7%A0%94"><center>岗位调研</center></a></h3><h3 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a><a href="#%E4%B8%AA%E4%BA%BA%E6%80%BB%E7%BB%93"><center>个人总结</center></a></h3><h3 id="需要了解的知识点汇总"><a href="#需要了解的知识点汇总" class="headerlink" title="需要了解的知识点汇总"></a><a href="#%E6%B1%87%E6%80%BB"><center>需要了解的知识点汇总</center></a></h3><br>
+
+<hr>
+<h4 id="boss直聘15k以上职位要求调研"><a href="#boss直聘15k以上职位要求调研" class="headerlink" title="boss直聘15k以上职位要求调研"></a>boss直聘15k以上职位要求调研</h4><table>
+<thead>
+<tr>
+<th>技术栈</th>
+<th>公司</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>精通JS、AJAX、JSON等WEB页面技术</td>
+<td>百度</td>
+</tr>
+<tr>
+<td>熟悉HTTP协议，熟练掌握HTML/XHTML、CSS</td>
+<td>百度、快手、58</td>
+</tr>
+<tr>
+<td>熟悉WEB标准，对表现与数据分离，HTML语义化等有深刻理解</td>
+<td>百度</td>
+</tr>
+<tr>
+<td>熟练掌握主流前端框架，包括但不限于Angular、Vue、React</td>
+<td>快手、腾讯、贝壳、小米、今日头条、网易有道、58、猿辅导</td>
+</tr>
+<tr>
+<td>熟悉Http、Websocket协议，熟练掌握 Typescript、Graphql 等;</td>
+<td>快手</td>
+</tr>
+<tr>
+<td>在前端工程化，浏览器原理，Web安全，WebGL，算法，自动化测试，网络优化等至少一个方面深耕过并有自己深度思考或产出</td>
+<td>快手</td>
+</tr>
+<tr>
+<td>JavaScript跨浏览器开发经验</td>
+<td>搜狐</td>
+</tr>
+<tr>
+<td>能深刻理解W3C标准及可用性，对移动端Web App在手机上的适配方案有很好的理解，熟悉各种终端的适配差异</td>
+<td>小米</td>
+</tr>
+<tr>
+<td>熟练使用JS(ES6+),知晓原型链、作用域、this、上下文等原生JS概念及ES6+常用方法</td>
+<td>–</td>
+</tr>
+<tr>
+<td>了解常用的递归、排序、字符串、树、链表、数组等算法熟悉正则表达式</td>
+<td>–</td>
+</tr>
+<tr>
+<td>熟悉Node开发环境，能够熟练使用Webpack等构建工具；了解create-react-app、vue-cli等脚手架，可以按需配置。</td>
+<td>–</td>
+</tr>
+<tr>
+<td>熟练 Javascript 语言，熟练掌握作用域、闭包、执行模型、性能优化、内存管理、网络通信、缓存等。</td>
+<td>作业帮</td>
+</tr>
+<tr>
+<td>能提供完善的WebApp技术方案，了解native移动应用开发；</td>
+<td>–</td>
+</tr>
+<tr>
+<td>熟悉EJS，Jade等模板引擎技术者优先</td>
+<td>天眼查</td>
+</tr>
+<tr>
+<td>对常见身份验证标准和协议有所了解，例如 OAuth, OpenID Connect, SAML, JWT</td>
+<td>–</td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="个人总结-1"><a href="#个人总结-1" class="headerlink" title="个人总结"></a>个人总结</h4><ol>
 <li><p>框架，很多公司都会强调精通一门JavaScript框架，只要一门精通就行，足够了，但是，精通指的是你了解他的运行机制，他的优点缺点，从最简单的项目搭建开始一直到项目提交打包，都要知道流程，即使你不会用到。<br>什么时候算精通呢，再我看来，就是你在使用他的时候，感觉这个地方不合理，你想改他，你就去百度，发现都没这方面的相关东西。在别的框架才有。</p>
 </li>
 <li><p>JavaScript，比如只懂 jQuery 不懂 JavaScript 是不行的哦，JavaScript是一门语言，熟练掌握作用域、闭包、执行模型、性能优化、内存管理、网络通信、缓存等。很多人会问你es6新特新，他只是JavaScript的一种新的版本，你经常用的时候，就会理解，除非你一直写jQuery，那你就真的只是个前端。记住，要为了一门语言学框架，而不是为了前端要写框架。js精通可以转nodejs，会vue你转什么？</p>
 </li>
-<li><p>知识面，记住，要不广，要不深。</p>
+<li><p>知识面，记住，要不广，要不深。个人推荐先广在深，知识面广你可以有大局观，知道自己代码或者程序大体的限制，你可以更好的预留出将来可能出现坑的地方。技术交流的时候，你总能知道别人在说什么方面</p>
 </li>
+</ol>
+<hr>
+<h4 id="汇总"><a href="#汇总" class="headerlink" title="汇总"></a>汇总</h4><h5 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h5><ul>
+<li><a href="https://www.jianshu.com/p/80e25cb1d81a">HTTP协议</a></li>
+<li><a href="https://www.jianshu.com/p/02e3172dbebf">HTML/XHTML</a></li>
+<li><a href="https://www.jianshu.com/p/cb6a74dd8db5">WEB标准</a></li>
+<li><a href="https://www.jianshu.com/p/b226910034f2">HTML语义化</a></li>
+<li><a href="https://www.jianshu.com/p/0598c825ac54">Websocket协议</a></li>
+<li><a href="https://www.jianshu.com/p/7c3dcaf55273">浏览器原理</a></li>
+<li><a href="https://www.jianshu.com/p/c5c089023e48">Web安全</a></li>
+<li>熟练 Javascript 语言，熟练掌握作用域、闭包、执行模型、性能优化、内存管理、网络通信、缓存等</li>
+<li>了解常用的递归、排序、字符串、树、链表、数组等算法</li>
+<li><a href="https://www.jianshu.com/p/326f6a815b6e">熟悉正则表达式</a></li>
+<li>熟练使用JS(ES6+),知晓原型链、作用域、this、上下文等原生JS概念及ES6+常用方法</li>
+</ul>
+<h5 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h5><ul>
+<li>熟练掌握主流前端框架，包括但不限于Angular、Vue、React</li>
+<li><a href="https://www.jianshu.com/p/88ed70476adb">前端工程化</a></li>
+<li><a href="https://www.jianshu.com/p/8a69b849064f">熟悉EJS，Jade等模板引擎技术者优先</a></li>
+<li>熟悉Node开发环境，能够熟练使用Webpack等构建工具</li>
+</ul>
+<h5 id="高级"><a href="#高级" class="headerlink" title="高级"></a>高级</h5><ul>
+<li><a href="https://www.jianshu.com/p/38b58c14dcb2">JavaScript跨浏览器开发</a></li>
+<li><a href="https://www.jianshu.com/p/3081dcc45173?utm_source=oschina-app">WebApp技术方案，了解native移动应用开发</a></li>
+<li><a href="https://blog.csdn.net/baidu_22254181/article/details/82593364">常见身份验证标准和协议</a></li>
+<li>熟悉各种终端的适配差异</li>
 </ul>
 ]]></content>
       <tags>
