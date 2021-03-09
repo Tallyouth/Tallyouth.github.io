@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>MariaDB数据库安装</title>
-    <url>/2020/11/04/MariaDB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h4 id="1-打开MariaDB下载地址，选择当前稳定版本-下载地址"><a href="#1-打开MariaDB下载地址，选择当前稳定版本-下载地址" class="headerlink" title="1.打开MariaDB下载地址，选择当前稳定版本 下载地址"></a>1.打开MariaDB下载地址，选择当前稳定版本 <a href="https://downloads.mariadb.org/">下载地址</a></h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5d5rkd8j313m0oxtas.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”"><a href="#2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”" class="headerlink" title="2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]"></a>2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5f18h9nj30xc0n3wgr.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="3-选择系统版本和mariadb版本自定义的存储库会生成在下面"><a href="#3-选择系统版本和mariadb版本自定义的存储库会生成在下面" class="headerlink" title="3.选择系统版本和mariadb版本自定义的存储库会生成在下面"></a>3.选择系统版本和mariadb版本自定义的存储库会生成在下面</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5furyjqj30xc0m476b.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源"><a href="#4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源" class="headerlink" title="4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源"></a>4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># MariaDB 10.4 CentOS repository list - created 2020-11-04 05:28 UTC</span><br><span class="line"># http:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;</span><br><span class="line">[mariadb]</span><br><span class="line">name &#x3D; MariaDB</span><br><span class="line">baseurl &#x3D; https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;10.4&#x2F;centos7-amd64&#x2F;</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="5-使用以下命令安装MariaDB"><a href="#5-使用以下命令安装MariaDB" class="headerlink" title="5.使用以下命令安装MariaDB"></a>5.使用以下命令安装MariaDB</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum -y install MariaDB-server MariaDB-client</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>注意： 如果报错镜像不存在，HTTPS Error 404 - Not Found ，确认安装的版本在镜像中存在，可以直接进镜像地址查看。<br>也有可能yum本地镜像源仓库版本和需要安装的版本不一致，通过<code>sudo yum -y list MariaDB-server MariaDB-client</code>查看，否则更换本地yum源为清华镜像源</li>
-</ul>
-<h4 id="6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"><a href="#6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）" class="headerlink" title="6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"></a>6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start mariadb         # 启动服务</span><br><span class="line">systemctl enable mariadb        # 可选开机自启动</span><br><span class="line">mysql_secure_installation       # 开始配置</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="7-安装过程选择"><a href="#7-安装过程选择" class="headerlink" title="7. 安装过程选择"></a>7. 安装过程选择</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">（1）输入当前密码，初次安装后是没有密码的，直接回车</span><br><span class="line">（2）询问时候使用 unix_socket 进行身份验证 n</span><br><span class="line">（3）是否为 root 设置新密码 y</span><br><span class="line">（4）输入新密码</span><br><span class="line">（5）确认密码</span><br><span class="line">（6）时候移除匿名用户，这个随意 y</span><br><span class="line">（7）拒绝用户远程登陆，看心情 n</span><br><span class="line">（8）删除test库，看心情 n</span><br><span class="line">（9）重新加载权限表 y</span><br></pre></td></tr></table></figure>
-<p><strong><em>根据提示进行配置，当你看到 Thanks for using MariaDB! 时，表明配置成功了</em></strong></p>
-<h4 id="8-配置"><a href="#8-配置" class="headerlink" title="8.配置"></a>8.配置</h4><ul>
-<li>云服务器记得开放安全组3306端口</li>
-<li>开启远程连接  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;自定义远程登陆的密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>数据库</tag>
-        <tag>MariaDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ab压测工具使用</title>
     <url>/2020/11/26/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>yum -y install httpd-tools</code></p>
@@ -125,39 +96,32 @@
       </tags>
   </entry>
   <entry>
-    <title>docker cmd 和 entrypoint 的区别</title>
-    <url>/2020/08/31/docker-cmd-%E5%92%8C-entrypoint-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
-    <content><![CDATA[<h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><ol>
-<li>如果docker run没有指定任何的执行命令或者dockerfile里面也没有entrypoint，那么，就会使用cmd指定的默认的执行命令执行。同时也从侧面说明了entrypoint的含义，它才是真正的容器启动以后要执行命令。所以这句话就给出了cmd命令的一个角色定位，它主要作用是默认的容器启动执行命令。（注意不是“全部”作用）</li>
-</ol>
-<hr>
-<ol start="2">
-<li>如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数</li>
-</ol>
-<h3 id="cmd用法"><a href="#cmd用法" class="headerlink" title="cmd用法"></a>cmd用法</h3><ol>
-<li><p>没有中括号的形式,那么命令command默认是在“/bin/sh -c”下执行的</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD echo &quot;hello cmd!&quot;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>带有中括号的形式。这时，命令没有再任何shell终端环境下，如果我们要执行shell，必须把shell加入到中括号的参数中。这种用法就像一个c语言的exec函数，意思是我们要执行一个进程</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;bin&#x2F;bash&quot;, &quot;-c&quot;, &quot;echo &#39;hello cmd!&#39;&quot;]</span><br></pre></td></tr></table></figure>
-<p> <strong><em>需要注意，采用中括号形式，那么第一个参数必须是命令的全路径才行。而且，一个dockerfile至多只能有一个cmd，如果有多个，只有最后一个生效。<br>官网推荐采用这种方法.</em></strong></p>
-</li>
-</ol>
-<h3 id="entrypoint用法"><a href="#entrypoint用法" class="headerlink" title="entrypoint用法"></a>entrypoint用法</h3><ol>
-<li><p>没有中括号，在这种模式下，任何run和cmd的参数都无法被传入到entrypoint里</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT echo</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cmd的参数没有被打印。</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; </span><br></pre></td></tr></table></figure>
-</li>
-<li><p>带中括号的，如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数,官网推荐这种用法。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT [&quot;echo&quot;]</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; p in cmd</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id p in run</span><br><span class="line">&#x3D;&gt; p in run</span><br></pre></td></tr></table></figure>
+    <title>MariaDB数据库安装</title>
+    <url>/2020/11/04/MariaDB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h4 id="1-打开MariaDB下载地址，选择当前稳定版本-下载地址"><a href="#1-打开MariaDB下载地址，选择当前稳定版本-下载地址" class="headerlink" title="1.打开MariaDB下载地址，选择当前稳定版本 下载地址"></a>1.打开MariaDB下载地址，选择当前稳定版本 <a href="https://downloads.mariadb.org/">下载地址</a></h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5d5rkd8j313m0oxtas.jpg" alt="客官不要急！图马上就出来了！！！"></p>
+<h4 id="2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”"><a href="#2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”" class="headerlink" title="2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]"></a>2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5f18h9nj30xc0n3wgr.jpg" alt="客官不要急！图马上就出来了！！！"></p>
+<h4 id="3-选择系统版本和mariadb版本自定义的存储库会生成在下面"><a href="#3-选择系统版本和mariadb版本自定义的存储库会生成在下面" class="headerlink" title="3.选择系统版本和mariadb版本自定义的存储库会生成在下面"></a>3.选择系统版本和mariadb版本自定义的存储库会生成在下面</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5furyjqj30xc0m476b.jpg" alt="客官不要急！图马上就出来了！！！"></p>
+<h4 id="4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源"><a href="#4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源" class="headerlink" title="4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源"></a>4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># MariaDB 10.4 CentOS repository list - created 2020-11-04 05:28 UTC</span><br><span class="line"># http:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;</span><br><span class="line">[mariadb]</span><br><span class="line">name &#x3D; MariaDB</span><br><span class="line">baseurl &#x3D; https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;10.4&#x2F;centos7-amd64&#x2F;</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+<h4 id="5-使用以下命令安装MariaDB"><a href="#5-使用以下命令安装MariaDB" class="headerlink" title="5.使用以下命令安装MariaDB"></a>5.使用以下命令安装MariaDB</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum -y install MariaDB-server MariaDB-client</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意： 如果报错镜像不存在，HTTPS Error 404 - Not Found ，确认安装的版本在镜像中存在，可以直接进镜像地址查看。<br>也有可能yum本地镜像源仓库版本和需要安装的版本不一致，通过<code>sudo yum -y list MariaDB-server MariaDB-client</code>查看，否则更换本地yum源为清华镜像源</li>
+</ul>
+<h4 id="6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"><a href="#6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）" class="headerlink" title="6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"></a>6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start mariadb         # 启动服务</span><br><span class="line">systemctl enable mariadb        # 可选开机自启动</span><br><span class="line">mysql_secure_installation       # 开始配置</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="7-安装过程选择"><a href="#7-安装过程选择" class="headerlink" title="7. 安装过程选择"></a>7. 安装过程选择</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">（1）输入当前密码，初次安装后是没有密码的，直接回车</span><br><span class="line">（2）询问时候使用 unix_socket 进行身份验证 n</span><br><span class="line">（3）是否为 root 设置新密码 y</span><br><span class="line">（4）输入新密码</span><br><span class="line">（5）确认密码</span><br><span class="line">（6）时候移除匿名用户，这个随意 y</span><br><span class="line">（7）拒绝用户远程登陆，看心情 n</span><br><span class="line">（8）删除test库，看心情 n</span><br><span class="line">（9）重新加载权限表 y</span><br></pre></td></tr></table></figure>
+<p><strong><em>根据提示进行配置，当你看到 Thanks for using MariaDB! 时，表明配置成功了</em></strong></p>
+<h4 id="8-配置"><a href="#8-配置" class="headerlink" title="8.配置"></a>8.配置</h4><ul>
+<li>云服务器记得开放安全组3306端口</li>
+<li>开启远程连接  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;自定义远程登陆的密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
+</ul>
 ]]></content>
       <tags>
-        <tag>docker</tag>
+        <tag>数据库</tag>
+        <tag>MariaDB</tag>
       </tags>
   </entry>
   <entry>
@@ -198,6 +162,87 @@
 ]]></content>
       <tags>
         <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>docker cmd 和 entrypoint 的区别</title>
+    <url>/2020/08/31/docker-cmd-%E5%92%8C-entrypoint-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
+    <content><![CDATA[<h3 id="主要区别"><a href="#主要区别" class="headerlink" title="主要区别"></a>主要区别</h3><ol>
+<li>如果docker run没有指定任何的执行命令或者dockerfile里面也没有entrypoint，那么，就会使用cmd指定的默认的执行命令执行。同时也从侧面说明了entrypoint的含义，它才是真正的容器启动以后要执行命令。所以这句话就给出了cmd命令的一个角色定位，它主要作用是默认的容器启动执行命令。（注意不是“全部”作用）</li>
+</ol>
+<hr>
+<ol start="2">
+<li>如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数</li>
+</ol>
+<h3 id="cmd用法"><a href="#cmd用法" class="headerlink" title="cmd用法"></a>cmd用法</h3><ol>
+<li><p>没有中括号的形式,那么命令command默认是在“/bin/sh -c”下执行的</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD echo &quot;hello cmd!&quot;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带有中括号的形式。这时，命令没有再任何shell终端环境下，如果我们要执行shell，必须把shell加入到中括号的参数中。这种用法就像一个c语言的exec函数，意思是我们要执行一个进程</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"></span><br><span class="line">CMD [&quot;&#x2F;bin&#x2F;bash&quot;, &quot;-c&quot;, &quot;echo &#39;hello cmd!&#39;&quot;]</span><br></pre></td></tr></table></figure>
+<p> <strong><em>需要注意，采用中括号形式，那么第一个参数必须是命令的全路径才行。而且，一个dockerfile至多只能有一个cmd，如果有多个，只有最后一个生效。<br>官网推荐采用这种方法.</em></strong></p>
+</li>
+</ol>
+<h3 id="entrypoint用法"><a href="#entrypoint用法" class="headerlink" title="entrypoint用法"></a>entrypoint用法</h3><ol>
+<li><p>没有中括号，在这种模式下，任何run和cmd的参数都无法被传入到entrypoint里</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT echo</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># cmd的参数没有被打印。</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; </span><br></pre></td></tr></table></figure>
+</li>
+<li><p>带中括号的，如果run命令后面有东西，那么后面的全部都会作为entrypoint的参数。如果run后面没有额外的东西，但是cmd有，那么cmd的全部内容会作为entrypoint的参数,官网推荐这种用法。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM centos</span><br><span class="line"> </span><br><span class="line">CMD [&quot;p in cmd&quot;]</span><br><span class="line">ENTRYPOINT [&quot;echo&quot;]</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 不带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id</span><br><span class="line">&#x3D;&gt; p in cmd</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 带参数</span><br><span class="line"></span><br><span class="line">&#x3D;&gt; docker run docker_id p in run</span><br><span class="line">&#x3D;&gt; p in run</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>docker</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python项目需要哪些东西呢？</title>
+    <url>/2020/11/30/python%E9%A1%B9%E7%9B%AE%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><ul>
+<li><p>配置文件</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">requirements.txt        # python项目配置文件</span><br><span class="line">config.default.yaml     # 默认配置文件</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">setup.py                # 安装</span><br></pre></td></tr></table></figure></li>
+<li><p>main，cmd参数配置</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">main.py                 # 主启动文件</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<h3 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h3><ul>
+<li>日志  </li>
+<li>消息队列模块</li>
+<li>处理配置文件</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>项目</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>python描述器</title>
+    <url>/2021/02/23/python%E6%8F%8F%E8%BF%B0%E5%99%A8/</url>
+    <content><![CDATA[<h4 id="描述器定义"><a href="#描述器定义" class="headerlink" title="描述器定义"></a>描述器定义</h4><p>如果一个对象同时定义了 <strong>get</strong>() 和 <strong>set</strong>()，则它会被视为数据描述器。 仅定义了 <strong>get</strong>() 的称为非数据描述器（它们通常被用于方法，但也可以有其他用途）。</p>
+<h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
+<li><p>描述器必须出现在所有者类或其父类的字典 <strong>dict</strong> 里。这里提到了两个类，一是定义了描述器协议的描述器类，另一个是使用描述器的所有者类。</p>
+</li>
+<li><p>描述器往往以装饰器的方式被使用，导致二者常被混淆。描述器类和不带参数的装饰器类一样，都传入函数对象作为参数，并返回一个类实例，所不同的是，装饰器类返回 callable 的实例，描述器则返回描述器实例。</p>
+</li>
+</ul>
+<h4 id="eg-one"><a href="#eg-one" class="headerlink" title="eg-one:"></a>eg-one:</h4><h5 id="Property"><a href="#Property" class="headerlink" title="@Property"></a>@Property</h5><ul>
+<li>Python 内置的 property 函数可以说是最著名的描述器之一</li>
+</ul>
+<h4 id="eg-two"><a href="#eg-two" class="headerlink" title="eg-two"></a>eg-two</h4><h5 id="使用描述器实现数据缓存"><a href="#使用描述器实现数据缓存" class="headerlink" title="使用描述器实现数据缓存"></a>使用描述器实现数据缓存</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cache_property</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    docstring</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, fun</span>):</span></span><br><span class="line">        self.fun = fun</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span>(<span class="params">self, obj, cls</span>):</span></span><br><span class="line">        print(<span class="string">&quot;enter __get__&quot;</span>, obj, cls)</span><br><span class="line">        <span class="keyword">if</span> obj <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        value = obj.__dict__[self.fun.__name] = self.fun(obj)</span><br><span class="line">        <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>]]></content>
+      <tags>
+        <tag>python</tag>
+        <tag>基础</tag>
       </tags>
   </entry>
   <entry>
