@@ -1,35 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>MariaDB数据库安装</title>
-    <url>/2020/11/04/MariaDB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<h4 id="1-打开MariaDB下载地址，选择当前稳定版本-下载地址"><a href="#1-打开MariaDB下载地址，选择当前稳定版本-下载地址" class="headerlink" title="1.打开MariaDB下载地址，选择当前稳定版本 下载地址"></a>1.打开MariaDB下载地址，选择当前稳定版本 <a href="https://downloads.mariadb.org/">下载地址</a></h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5d5rkd8j313m0oxtas.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”"><a href="#2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”" class="headerlink" title="2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]"></a>2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5f18h9nj30xc0n3wgr.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="3-选择系统版本和mariadb版本自定义的存储库会生成在下面"><a href="#3-选择系统版本和mariadb版本自定义的存储库会生成在下面" class="headerlink" title="3.选择系统版本和mariadb版本自定义的存储库会生成在下面"></a>3.选择系统版本和mariadb版本自定义的存储库会生成在下面</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5furyjqj30xc0m476b.jpg" alt="客官不要急！图马上就出来了！！！"></p>
-<h4 id="4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源"><a href="#4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源" class="headerlink" title="4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源"></a>4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># MariaDB 10.4 CentOS repository list - created 2020-11-04 05:28 UTC</span><br><span class="line"># http:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;</span><br><span class="line">[mariadb]</span><br><span class="line">name &#x3D; MariaDB</span><br><span class="line">baseurl &#x3D; https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;10.4&#x2F;centos7-amd64&#x2F;</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="5-使用以下命令安装MariaDB"><a href="#5-使用以下命令安装MariaDB" class="headerlink" title="5.使用以下命令安装MariaDB"></a>5.使用以下命令安装MariaDB</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum -y install MariaDB-server MariaDB-client</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>注意： 如果报错镜像不存在，HTTPS Error 404 - Not Found ，确认安装的版本在镜像中存在，可以直接进镜像地址查看。<br>也有可能yum本地镜像源仓库版本和需要安装的版本不一致，通过<code>sudo yum -y list MariaDB-server MariaDB-client</code>查看，否则更换本地yum源为清华镜像源</li>
-</ul>
-<h4 id="6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"><a href="#6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）" class="headerlink" title="6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"></a>6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start mariadb         # 启动服务</span><br><span class="line">systemctl enable mariadb        # 可选开机自启动</span><br><span class="line">mysql_secure_installation       # 开始配置</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="7-安装过程选择"><a href="#7-安装过程选择" class="headerlink" title="7. 安装过程选择"></a>7. 安装过程选择</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">（1）输入当前密码，初次安装后是没有密码的，直接回车</span><br><span class="line">（2）询问时候使用 unix_socket 进行身份验证 n</span><br><span class="line">（3）是否为 root 设置新密码 y</span><br><span class="line">（4）输入新密码</span><br><span class="line">（5）确认密码</span><br><span class="line">（6）时候移除匿名用户，这个随意 y</span><br><span class="line">（7）拒绝用户远程登陆，看心情 n</span><br><span class="line">（8）删除test库，看心情 n</span><br><span class="line">（9）重新加载权限表 y</span><br></pre></td></tr></table></figure>
-<p><strong><em>根据提示进行配置，当你看到 Thanks for using MariaDB! 时，表明配置成功了</em></strong></p>
-<h4 id="8-配置"><a href="#8-配置" class="headerlink" title="8.配置"></a>8.配置</h4><ul>
-<li>云服务器记得开放安全组3306端口</li>
-<li>开启远程连接  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;自定义远程登陆的密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
-      <tags>
-        <tag>数据库</tag>
-        <tag>MariaDB</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ab压测工具使用</title>
     <url>/2020/11/26/ab%E5%8E%8B%E6%B5%8B%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p><code>yum -y install httpd-tools</code></p>
@@ -125,6 +96,35 @@
       </tags>
   </entry>
   <entry>
+    <title>MariaDB数据库安装</title>
+    <url>/2020/11/04/MariaDB%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<h4 id="1-打开MariaDB下载地址，选择当前稳定版本-下载地址"><a href="#1-打开MariaDB下载地址，选择当前稳定版本-下载地址" class="headerlink" title="1.打开MariaDB下载地址，选择当前稳定版本 下载地址"></a>1.打开MariaDB下载地址，选择当前稳定版本 <a href="https://downloads.mariadb.org/">下载地址</a></h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5d5rkd8j313m0oxtas.jpg" alt="客官不要急！图马上就出来了！！！"></p>
+<h4 id="2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”"><a href="#2-为了获得RPM软件包的最佳效果，这里使用“-存储库配置工具”" class="headerlink" title="2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]"></a>2.为了获得RPM软件包的最佳效果，这里使用“ [存储库配置工具”]</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5f18h9nj30xc0n3wgr.jpg" alt="客官不要急！图马上就出来了！！！"></p>
+<h4 id="3-选择系统版本和mariadb版本自定义的存储库会生成在下面"><a href="#3-选择系统版本和mariadb版本自定义的存储库会生成在下面" class="headerlink" title="3.选择系统版本和mariadb版本自定义的存储库会生成在下面"></a>3.选择系统版本和mariadb版本自定义的存储库会生成在下面</h4><p><img src="http://ww1.sinaimg.cn/large/005Seyywly1gkd5furyjqj30xc0m476b.jpg" alt="客官不要急！图马上就出来了！！！"></p>
+<h4 id="4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源"><a href="#4-拷贝到-etc-yum-repos-d-下的文件中，建议命名为-MariaDB-repo，考虑到国内镜像下载慢，更新为清华镜像源" class="headerlink" title="4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源"></a>4.拷贝到 /etc/yum.repos.d/ 下的文件中，建议命名为 MariaDB.repo，考虑到国内镜像下载慢，更新为清华镜像源</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># MariaDB 10.4 CentOS repository list - created 2020-11-04 05:28 UTC</span><br><span class="line"># http:&#x2F;&#x2F;downloads.mariadb.org&#x2F;mariadb&#x2F;repositories&#x2F;</span><br><span class="line">[mariadb]</span><br><span class="line">name &#x3D; MariaDB</span><br><span class="line">baseurl &#x3D; https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;10.4&#x2F;centos7-amd64&#x2F;</span><br><span class="line">gpgkey&#x3D;https:&#x2F;&#x2F;mirrors.ustc.edu.cn&#x2F;mariadb&#x2F;yum&#x2F;RPM-GPG-KEY-MariaDB</span><br><span class="line">gpgcheck&#x3D;1</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="5-使用以下命令安装MariaDB"><a href="#5-使用以下命令安装MariaDB" class="headerlink" title="5.使用以下命令安装MariaDB"></a>5.使用以下命令安装MariaDB</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">sudo yum -y install MariaDB-server MariaDB-client</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>注意： 如果报错镜像不存在，HTTPS Error 404 - Not Found ，确认安装的版本在镜像中存在，可以直接进镜像地址查看。<br>也有可能yum本地镜像源仓库版本和需要安装的版本不一致，通过<code>sudo yum -y list MariaDB-server MariaDB-client</code>查看，否则更换本地yum源为清华镜像源</li>
+</ul>
+<h4 id="6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"><a href="#6-安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）" class="headerlink" title="6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）"></a>6.安装完成MariaDB后还需要配置数据库，执行以下命令用以启动mysql服务（MariaDB就是mysql的分支，所以服务名是一样的，如果本地有mysql可以无缝切换或安装）</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">systemctl start mariadb         # 启动服务</span><br><span class="line">systemctl enable mariadb        # 可选开机自启动</span><br><span class="line">mysql_secure_installation       # 开始配置</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="7-安装过程选择"><a href="#7-安装过程选择" class="headerlink" title="7. 安装过程选择"></a>7. 安装过程选择</h4><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">（1）输入当前密码，初次安装后是没有密码的，直接回车</span><br><span class="line">（2）询问时候使用 unix_socket 进行身份验证 n</span><br><span class="line">（3）是否为 root 设置新密码 y</span><br><span class="line">（4）输入新密码</span><br><span class="line">（5）确认密码</span><br><span class="line">（6）时候移除匿名用户，这个随意 y</span><br><span class="line">（7）拒绝用户远程登陆，看心情 n</span><br><span class="line">（8）删除test库，看心情 n</span><br><span class="line">（9）重新加载权限表 y</span><br></pre></td></tr></table></figure>
+<p><strong><em>根据提示进行配置，当你看到 Thanks for using MariaDB! 时，表明配置成功了</em></strong></p>
+<h4 id="8-配置"><a href="#8-配置" class="headerlink" title="8.配置"></a>8.配置</h4><ul>
+<li>云服务器记得开放安全组3306端口</li>
+<li>开启远程连接  <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mysql -u root -p</span><br><span class="line">grant all privileges on *.* to &#39;root&#39;@&#39;%&#39; identified by &#39;自定义远程登陆的密码&#39;;</span><br><span class="line">flush privileges;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>数据库</tag>
+        <tag>MariaDB</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>docker add 和 copy 的区别</title>
     <url>/2020/09/01/docker-add-%E5%92%8C-copy-%E7%9A%84%E5%8C%BA%E5%88%AB/</url>
     <content><![CDATA[<p><strong><code>COPY</code> 和 <code>ADD</code> 都是 <code>Dockerfile</code> 中的指令，作用有些相似，都可以把文件从特定的位置复制到镜像中去</strong></p>
@@ -203,9 +203,9 @@
   <entry>
     <title>python描述器</title>
     <url>/2021/02/23/python%E6%8F%8F%E8%BF%B0%E5%99%A8/</url>
-    <content><![CDATA[<h4 id="描述器定义"><a href="#描述器定义" class="headerlink" title="描述器定义"></a>描述器定义</h4><p>如果一个对象同时定义了 _<em>get__() 和 _<em>set</em></em>()，则它会被视为数据描述器。 仅定义了 __get__() 的称为非数据描述器（它们通常被用于方法，但也可以有其他用途）。</p>
+    <content><![CDATA[<h4 id="描述器定义"><a href="#描述器定义" class="headerlink" title="描述器定义"></a>描述器定义</h4><p>如果一个对象同时定义了 <code>__get__()</code> 和 <code>__set__()</code>，则它会被视为数据描述器。 仅定义了 <code>__get__()</code> 的称为非数据描述器（它们通常被用于方法，但也可以有其他用途）。</p>
 <h4 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h4><ul>
-<li><p>描述器必须出现在所有者类或其父类的字典 __dict__ 里。这里提到了两个类，一是定义了描述器协议的描述器类，另一个是使用描述器的所有者类。</p>
+<li><p>描述器必须出现在所有者类或其父类的字典 <code>__dict__</code> 里。这里提到了两个类，一是定义了描述器协议的描述器类，另一个是使用描述器的所有者类。</p>
 </li>
 <li><p>描述器往往以装饰器的方式被使用，导致二者常被混淆。描述器类和不带参数的装饰器类一样，都传入函数对象作为参数，并返回一个类实例，所不同的是，装饰器类返回 callable 的实例，描述器则返回描述器实例。</p>
 </li>
