@@ -210,13 +210,16 @@
 <li><p>描述器往往以装饰器的方式被使用，导致二者常被混淆。描述器类和不带参数的装饰器类一样，都传入函数对象作为参数，并返回一个类实例，所不同的是，装饰器类返回 callable 的实例，描述器则返回描述器实例。</p>
 </li>
 </ul>
-<h4 id="eg1"><a href="#eg1" class="headerlink" title="eg1:"></a>eg1:</h4><hr>
-<h5 id="Property"><a href="#Property" class="headerlink" title="@Property"></a>@Property</h5><ul>
+<h4 id="eg1"><a href="#eg1" class="headerlink" title="eg1:"></a>eg1:</h4><ul>
+<li><h5 id="Property"><a href="#Property" class="headerlink" title="@Property"></a>@Property</h5><ul>
 <li>Python 内置的 property 函数可以说是最著名的描述器之一</li>
 </ul>
-<hr>
-<h4 id="eg2"><a href="#eg2" class="headerlink" title="eg2"></a>eg2</h4><hr>
-<h5 id="使用描述器实现数据缓存"><a href="#使用描述器实现数据缓存" class="headerlink" title="使用描述器实现数据缓存"></a>使用描述器实现数据缓存</h5><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cache_property</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    docstring</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, fun</span>):</span></span><br><span class="line">        self.fun = fun</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span>(<span class="params">self, obj, cls</span>):</span></span><br><span class="line">        print(<span class="string">&quot;enter __get__&quot;</span>, obj, cls)</span><br><span class="line">        <span class="keyword">if</span> obj <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        value = obj.__dict__[self.fun.__name] = self.fun(obj)</span><br><span class="line">        <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure>]]></content>
+</li>
+</ul>
+<h4 id="eg2"><a href="#eg2" class="headerlink" title="eg2:"></a>eg2:</h4><ul>
+<li><h5 id="使用描述器实现数据缓存"><a href="#使用描述器实现数据缓存" class="headerlink" title="使用描述器实现数据缓存"></a>使用描述器实现数据缓存</h5>  <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">cache_property</span>(<span class="params">object</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    docstring</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, fun</span>):</span></span><br><span class="line">        self.fun = fun</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__get__</span>(<span class="params">self, obj, cls</span>):</span></span><br><span class="line">        print(<span class="string">&quot;enter __get__&quot;</span>, obj, cls)</span><br><span class="line">        <span class="keyword">if</span> obj <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">            <span class="keyword">return</span> self</span><br><span class="line">        value = obj.__dict__[self.fun.__name] = self.fun(obj)</span><br><span class="line">        <span class="keyword">return</span> value</span><br></pre></td></tr></table></figure></li>
+</ul>
+]]></content>
       <tags>
         <tag>python</tag>
         <tag>基础</tag>
